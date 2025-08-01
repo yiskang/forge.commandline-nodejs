@@ -38,16 +38,16 @@ Demonstrates the use of the Autodesk Forge API using a Node.js console applicati
      npm install
      ```
   4. Request your consumer key/secret key from [https://forge.autodesk.com](https://forge.autodesk.com).
-  5. Set 2 environment variables FORGE_CLIENT_ID / FORGE_CLIENT_SECRET<br />
+  5. Set 2 environment variables APS_CLIENT_ID / APS_CLIENT_SECRET<br />
   Mac OSX/Linux (Terminal)
      ```
-     export FORGE_CLIENT_ID=<<YOUR FORGE CLIENT ID>>
-     export FORGE_CLIENT_SECRET=<<YOUR FORGE CLIENT SECRET>>
+     export APS_CLIENT_ID=<<YOUR FORGE CLIENT ID>>
+     export APS_CLIENT_SECRET=<<YOUR FORGE CLIENT SECRET>>
      ```
      Windows (use <b>Node.js command line</b> from Start menu)
      ```
-     set FORGE_CLIENT_ID=<<YOUR FORGE CLIENT ID>>
-     set FORGE_CLIENT_SECRET=<<YOUR FORGE CLIENT SECRET>>
+     set APS_CLIENT_ID=<<YOUR FORGE CLIENT ID>>
+     set APS_CLIENT_SECRET=<<YOUR FORGE CLIENT SECRET>>
      ```
 
      If you only want to use Model Derivative, Data Management/OSS, Design Automation, Reality Capture - you can stop here

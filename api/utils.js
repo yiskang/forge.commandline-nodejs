@@ -33,12 +33,12 @@ const zlib = require('zlib');
 
 class utils {
 
-	static clearUrn(urn) {
+	static clearUrn (urn) {
 		urn = urn.replace('urn:', '');
 		return (urn);
 	}
 
-	static safeUrnEncode(urn, padding) { // eslint-disable-line no-unused-vars
+	static safeUrnEncode (urn, padding) { // eslint-disable-line no-unused-vars
 		padding = (padding === undefined ? true : padding);
 		urn = urn.replace('urn:', '').replace(/\+/g, '-').replace(/=/g, '_');
 		while ((urn.length % 4) !== 0)
@@ -46,34 +46,34 @@ class utils {
 		return (urn);
 	}
 
-	static safeUrnDecode(urn) {
+	static safeUrnDecode (urn) {
 		urn = urn.replace(/-/g, '+').replace(/_/g, '=');
 		return (urn);
 	}
 
-	static getVersion(versionId) {
+	static getVersion (versionId) {
 		let results = versionId.match(/^urn:(.+)\?version=(\d+)$/);
 		if (!results || results.length !== 3)
 			return (1);
 		return (results[2]);
 	}
 
-	static path(pathname, closingSlash) {
+	static path (pathname, closingSlash) {
 		closingSlash = closingSlash || '/';
 		return (path.normalize(path.join(__dirname, '/../', pathname)) + closingSlash);
 	}
 
-	static dataPath(pathname, closingSlash) {
+	static dataPath (pathname, closingSlash) {
 		closingSlash = closingSlash || '/';
 		return (path.normalize(path.join(__dirname, '/../data/', pathname)) + closingSlash);
 	}
 
-	static data(name, ext) {
+	static data (name, ext) {
 		ext = ext || '.json';
 		return (path.normalize(path.join(__dirname, '/../data/', name) + ext));
 	}
 
-	static readFile(filename, enc) {
+	static readFile (filename, enc) {
 		return (new Promise((fulfill, reject) => {
 			fs.readFile(filename, enc, (err, res) => {
 				if (err)
@@ -84,16 +84,11 @@ class utils {
 		}));
 	}
 
-	static writeFile(filename, content, enc, bRaw) {
+	static writeFile (filename, content, enc, bRaw) {
 		return (new Promise((fulfill, reject) => {
 			let pathname = path.dirname(filename);
-			if(bRaw === true && path.extname(filename) === '.json')
-				bRaw = false;
 			mkdirp(pathname)
 				.then((_pathname) => { // eslint-disable-line no-unused-vars
-					// console.log('writeFile', path.basename(filename), typeof content, enc);
-					// if (typeof content !== 'string' && !Buffer.isBuffer(content))
-					// 	console.log('writeFile', path.basename(filename), typeof content, enc);
 					fs.writeFile(filename, !bRaw && typeof content !== 'string' ? JSON.stringify(content) : content, enc, (err) => {
 						if (err)
 							reject(err);
@@ -104,7 +99,7 @@ class utils {
 		}));
 	}
 
-	static json(name) {
+	static json (name) {
 		let filename = utils.data(name, '.json');
 		return (new Promise((fulfill, reject) => {
 			utils.readFile(filename, 'utf8')
@@ -119,7 +114,7 @@ class utils {
 		}));
 	}
 
-	static jsonRoot(name) {
+	static jsonRoot (name) {
 		let filename = path.normalize(name);
 		return (new Promise((fulfill, reject) => {
 			utils.readFile(filename, 'utf8')
@@ -135,7 +130,7 @@ class utils {
 		);
 	}
 
-	static jsonGzRoot(name) {
+	static jsonGzRoot (name) {
 		let filename = path.normalize(name);
 		return (new Promise((fulfill, reject) => {
 			utils.readFile(filename)
@@ -153,7 +148,7 @@ class utils {
 		);
 	}
 
-	static settings(key, value, options) { // eslint-disable-line no-unused-vars
+	static settings (key, value, options) { // eslint-disable-line no-unused-vars
 		if (value) {
 			process.env[key] = value;
 			utils.json('settings')
@@ -190,7 +185,7 @@ class utils {
 		}
 	}
 
-	static gunzip(res, bRaw = false) {
+	static gunzip (res, bRaw = false) {
 		return (new Promise((fulfill, reject) => {
 			zlib.gunzip(res, (err, dezipped) => {
 				if (err) {
@@ -209,7 +204,7 @@ class utils {
 		}));
 	}
 
-	static filesize(filename) {
+	static filesize (filename) {
 		return (new Promise((fulfill, reject) => {
 			fs.stat(filename, (err, stat) => {
 				if (err)
@@ -220,7 +215,7 @@ class utils {
 		}));
 	}
 
-	static fileexists(filename) {
+	static fileexists (filename) {
 		return (new Promise((fulfill, reject) => {
 			fs.stat(filename, (err, stat) => { // eslint-disable-line no-unused-vars
 				if (err) {
@@ -235,7 +230,7 @@ class utils {
 		}));
 	}
 
-	static findFiles(dir, filter) {
+	static findFiles (dir, filter) {
 		return (new Promise((fulfill, reject) => {
 			fs.readdir(dir, (err, files) => {
 				if (err) {
@@ -251,7 +246,7 @@ class utils {
 		}));
 	}
 
-	static walkDirs(dir, done) {
+	static walkDirs (dir, done) {
 		let results = [];
 		fs.readdir(dir, (err, list) => {
 			if (err)
@@ -278,7 +273,7 @@ class utils {
 		});
 	}
 
-	static findFilesRecursive(dir, filter) {
+	static findFilesRecursive (dir, filter) {
 		return (new Promise((fulfill, reject) => {
 			utils.walkDirs(dir, (err, results) => {
 				if (err)
@@ -293,7 +288,7 @@ class utils {
 		}));
 	}
 
-	static unlink(filename) {
+	static unlink (filename) {
 		return (new Promise((fulfill, reject) => {
 			fs.stat(filename, (err, stat) => { // eslint-disable-line no-unused-vars
 				if (err) {
@@ -309,7 +304,7 @@ class utils {
 		}));
 	}
 
-	static mv(oldname, newname) {
+	static mv (oldname, newname) {
 		return (new Promise((fulfill, reject) => {
 			fs.stat(oldname, (err, stat) => { // eslint-disable-line no-unused-vars
 				if (err) {
@@ -325,26 +320,26 @@ class utils {
 		}));
 	}
 
-	static isCompressed(filename) {
+	static isCompressed (filename) {
 		return (path.extname(filename).toLowerCase() === '.zip'
 			|| path.extname(filename).toLowerCase() === '.rar' // jshint ignore:line
 			|| path.extname(filename).toLowerCase() === '.gz' // jshint ignore:line
 		);
 	}
 
-	static isBufferCompressed(buf) {
+	static isBufferCompressed (buf) {
 		if (!buf || buf.length < 2)
 			return (false);
 		return (buf[0] === 0x78 && (buf[1] === 1 || buf[1] === 0x9c || buf[1] === 0xda));
 	}
 
-	static isGZip(buf) {
+	static isGZip (buf) {
 		if (!buf || buf.length < 2)
 			return (false);
 		return (buf[0] === 0x1f && buf[1] === 0x8b);
 	}
 
-	static _Base64encode(st) {
+	static _Base64encode (st) {
 		return (st
 			.replace(/\+/g, '-') // Convert '+' to '-'
 			.replace(/\//g, '_') // Convert '/' to '_'
@@ -352,7 +347,7 @@ class utils {
 		);
 	}
 
-	static safeBase64encode(st) {
+	static safeBase64encode (st) {
 		return (Buffer.from(st).toString('base64')
 			.replace(/\+/g, '-') // Convert '+' to '-'
 			.replace(/\//g, '_') // Convert '/' to '_'
@@ -360,7 +355,7 @@ class utils {
 		);
 	}
 
-	static _safeBase64decode(base64) {
+	static _safeBase64decode (base64) {
 		// Add removed at end '='
 		base64 += Array(5 - base64.length % 4).join('=');
 		base64 = base64
@@ -369,7 +364,7 @@ class utils {
 		return (base64);
 	}
 
-	static safeBase64decode(base64) {
+	static safeBase64decode (base64) {
 		// Add removed at end '='
 		base64 += Array(5 - base64.length % 4).join('=');
 		base64 = base64
@@ -378,7 +373,7 @@ class utils {
 		return (Buffer.from(base64, 'base64').toString());
 	}
 
-	static readdir(pathname) {
+	static readdir (pathname) {
 		return (new Promise((fulfill, reject) => {
 			fs.readdir(pathname, (err, files) => {
 				if (err)
@@ -389,7 +384,7 @@ class utils {
 		}));
 	}
 
-	static rimraf(pathname) {
+	static rimraf (pathname) {
 		return (new Promise((fulfill, reject) => {
 			rimraf(pathname, (err) => {
 				if (err)
@@ -400,12 +395,12 @@ class utils {
 		}));
 	}
 
-	static checkHost(req, domain) { // eslint-disable-line no-unused-vars
+	static checkHost (req, domain) { // eslint-disable-line no-unused-vars
 		//return ( domain === '' || req.headers.referer === domain ) ;
 		return (true);
 	}
 
-	static returnResponseError(res, err) {
+	static returnResponseError (res, err) {
 		let msg = err.message || err.statusMessage || 'Internal Failure';
 		let code = err.code || err.statusCode || 500;
 		if (code === 'ENOENT') {
@@ -417,7 +412,7 @@ class utils {
 			.end(msg);
 	}
 
-	static accepts(req) {
+	static accepts (req) {
 		if (req.header('x-no-compression') !== undefined)
 			return ('');
 		let type = req.header('Accept-Encoding');
@@ -428,7 +423,7 @@ class utils {
 		return ('');
 	}
 
-	static authorization(req) {
+	static authorization (req) {
 		let bearer = req.header('Authorization');
 		if (bearer === undefined)
 			return (null);
@@ -438,7 +433,7 @@ class utils {
 		return (null);
 	}
 
-	static csv(st) {
+	static csv (st) {
 		let dbIds = st.split(','); // csv format
 		dbIds = dbIds.map((elt) => {
 			let r = elt.match(/^(\d+)-(\d+)$/);
@@ -456,7 +451,7 @@ class utils {
 		return ([].concat.apply([], dbIds));
 	}
 
-	static logTimeStamp(msg) {
+	static logTimeStamp (msg) {
 		msg = msg || '';
 		let date = new Date();
 		let hour = date.getHours();
@@ -470,7 +465,7 @@ class utils {
 	}
 
 	// https://github.com/joliss/promise-map-series
-	static promiseSerie(array, iterator, thisArg) {
+	static promiseSerie (array, iterator, thisArg) {
 		let length = array.length;
 		let current = Promise.resolve();
 		let results = new Array(length);
@@ -487,7 +482,7 @@ class utils {
 	// This function allow you to modify a JS Promise by adding some status properties.
 	// Based on: http://stackoverflow.com/questions/21485545/is-there-a-way-to-tell-if-an-es6-promise-is-fulfilled-rejected-resolved
 	// But modified according to the specs of promises : https://promisesaplus.com/
-	static PromiseStatus(promise) {
+	static PromiseStatus (promise) {
 		// Don't modify any promise that has been already modified.
 		if (promise.isResolved)
 			return (promise);
@@ -517,7 +512,7 @@ class utils {
 		return (result);
 	}
 
-	static promiseAllLimit(array, limit, iterator, thisArg) {
+	static promiseAllLimit (array, limit, iterator, thisArg) {
 		// let length =array.length ;
 		// let results =new Array (length) ;
 		// for ( let i =0 ; i < length ; i++ )
@@ -542,7 +537,7 @@ class utils {
 			}
 
 
-			function waitOneMore(data) { // eslint-disable-line no-shadow
+			function waitOneMore (data) { // eslint-disable-line no-shadow
 				Promise.race(data.tmp)
 					// eslint-disable-next-line no-unused-vars
 					.then(function (res) {
@@ -586,17 +581,17 @@ class utils {
 	}
 
 	/* promiseAllLimit example:
-
+	
 	function test (x) {
 		return (utils.PromiseStatus (new Promise ((fulfill, reject) => {
 			console.log (`calling test (${x})`) ;
 			setTimeout (() => { fulfill (x * x) ; console.log (`resolving test (${x})`) ; }, x * 100) ;
 		}))) ;
 	}
-
+	
 	let jobs = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 		.map ((elt) => function () { return ([test, arguments]) ; } (elt)) ;
-
+	
 	utils.promiseAllLimit (jobs, 3, (elt, index, arr) => elt [0].apply (null, elt [1]))
 		.then ((prs) => console.log (prs))
 		.catch ((err) => console.log (err)) ;

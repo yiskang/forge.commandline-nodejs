@@ -368,7 +368,7 @@ setInterval(() => {
 
 // Launch Server now!
 let server = app.listen(app.get('port'), () => {
-	console.log('API key ' + process.env.FORGE_CLIENT_ID);
+	console.log('API key ' + process.env.APS_CLIENT_ID);
 	console.log('Server listening on port ' + server.address().port);
 	console.log('WEB socket on port ' + MODEL_SERVER_PORT);
 	console.log('CDN - Serving Repos from ' + CDNS.repositories);
