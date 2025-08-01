@@ -66,11 +66,11 @@ Demonstrates the use of the Autodesk Forge API using a Node.js console applicati
      Default is : http://localhost:3006/oauth
   Mac OSX/Linux (Terminal)
      ```
-     export FORGE_CALLBACK=<<YOUR FORGE CALLBACK URL>>
+     export APS_CALLBACK=<<YOUR FORGE CALLBACK URL>>
      ```
      Windows (use <b>Node.js command line</b> from Start menu)
      ```
-     set FORGE_CALLBACK=<<YOUR FORGE CALLBACK URL>>
+     set APS_CALLBACK=<<YOUR FORGE CALLBACK URL>>
      ```
    8. Provision your application key on the BIM360 application integration page. [Learn about provisioning](https://forge.autodesk.com/blog/bim-360-docs-provisioning-forge-apps).
 

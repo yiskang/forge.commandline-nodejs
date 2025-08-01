@@ -55,6 +55,48 @@ We do recommend you to read the Viewer copyright and understands limitations in 
      set PORT=7125
      ```
 
+### OTG Bubble File Structure
+
+```
+.
++-- _Bubbles
+|   +-- cdn
+|       +-- g
+|       +-- m
+|   +-- {OTG/SVF2_Model_URN}
+|       +-- otg_files
+|           +-- 0
+|               +-- output
+|                   +-- Resource
+|                       +-- 3D View
+|                           +-- {View name}
+|                               +-- fragments_extra.fl
+|                               +-- fragments.fl
+|                               +-- geometry_ptrs.hl
+|                               +-- materials_ptrs.hl
+|                               +-- otg_model.json
+|                           +-- 08f99ae5-b8be-4f8d-881b-128675723c10 (Revit Master view folder)
+|                               +-- {View name}
+|                                   +-- fragments_extra.fl
+|                                   +-- fragments.fl
+|                                   +-- geometry_ptrs.hl
+|                                   +-- materials_ptrs.hl
+|                                   +-- otg_model.json
+|                       +-- AECModelData.json
+|                       +-- avs.idx
+|                       +-- avs.pack
+|                       +-- dbid.idx
+|               +-- bubble.json
+|               +-- otg_manifest.json
+|       +-- output
+|           +-- // copy `otg_files/0/output/Resource` here
+|   +-- pdb
+|       +-- attrs.json
+|       +-- ids.json
+|       +-- vals.json
+|   +-- output.html
+```
+
 ## Getting the OTG bubble
 
 This utility does provide a way to download the SVF and OTG Bubbles on your local machine for debugging propose. (click &#9658; to expand)
